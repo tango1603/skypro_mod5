@@ -1,7 +1,7 @@
 import React from "react";
 import "./app.scss";
-import Bar from "./components/bar/Bar";
-import Main from "./components/main/main";
+import Bar from "./components/common/bar/Bar";
+import Main from "./components/main/Main";
 import Footer from "./components/footer/Footer";
 
 const App = () => {

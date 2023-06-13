@@ -58,16 +58,16 @@
   flex: 1 1 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: start;
 
   &__nav {
-    width: 244px;
+    max-width: 244px;
     background-color: #181818;
     padding: 20px 0 20px 36px;
   }
 
   &__centerblock {
-    width: auto;
+    max-width: 61vw;
     flex-grow: 3;
     padding: 20px 40px 20px 111px;
   }
