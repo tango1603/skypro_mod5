@@ -1,26 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
-import styles from "./App.module.scss";
+import "./app.scss";
+import Bar from "./components/bar/Bar";
+import Main from "./components/main/main";
+import Footer from "./components/footer/Footer";
 
-function App() {
+const App = () => {
   return (
-    <div className={styles.app}>
-      <header className={styles.header}>
-        <img src={logo} className={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className={styles.link}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <div className="container">
+        <Main />
+        <Bar />
+        <Footer />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
