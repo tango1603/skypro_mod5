@@ -1,4 +1,5 @@
 import logo from "../../img/logo.png";
+import "./Nav.scss";
 
 const Nav = () => {
   return (

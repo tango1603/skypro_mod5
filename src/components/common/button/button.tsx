@@ -1,3 +1,5 @@
+import "./Button.scss";
+
 interface ButtonProps {
   text: string;
   type: string;

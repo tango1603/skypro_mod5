@@ -1,5 +1,4 @@
-import React from "react";
-import "./app.scss";
+import "./App.scss";
 import Bar from "./components/common/bar/Bar";
 import Main from "./components/main/Main";
 import Footer from "./components/footer/Footer";

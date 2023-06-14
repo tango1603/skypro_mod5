@@ -1,4 +1,5 @@
 import Icon from "../icons/Icons";
+import "./Search.scss";
 
 const Search = () => {
   return (

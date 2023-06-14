@@ -3,6 +3,7 @@ import Playlist from "../common/playlist/Playlist";
 import Search from "../common/search/Search";
 import Sidebar from "../sidebar/Sidebar";
 import Nav from "../nav/Nav";
+import "./Main.scss";
 
 const Main = () => {
   return (

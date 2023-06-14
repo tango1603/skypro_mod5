@@ -1,3 +1,4 @@
+import "./Volume.scss";
 const Volume = () => {
   return (
     <div className="bar__volume-block volume">

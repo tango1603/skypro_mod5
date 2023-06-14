@@ -1,5 +1,6 @@
 import React from "react";
 import Icon from "../icons/Icons";
+import "./Playlist.scss";
 
 const fakeData = [
   { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },

@@ -1,4 +1,5 @@
 import Button from "../button/Button";
+import "./Filter.scss";
 
 const dummyFilterAPI = [
   { text: "исполнителю", type: "author" },
