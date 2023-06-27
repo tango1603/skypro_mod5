@@ -1,36 +1,72 @@
-import { useState } from "react";
-import Button from "./buttons/Button";
+import { useState, useEffect } from "react";
 import "./Filter.scss";
 
+interface ButtonProps {
+  title: string;
+  type: string;
+  onClick: any;
+  isOpen: boolean;
+}
+
+const Button = ({ title, type, onClick }: ButtonProps) => {
+  return (
+    <div
+      data-type={type}
+      className="filter__button _btn-text"
+      onClick={onClick}
+    >
+      {title}
+    </div>
+  );
+};
+
 const Filter = () => {
-  const [filterValue, setFilter] = useState("");
+  const [isOpenFilter, setIsOpenFilter] = useState("");
 
-  const onFilterClickHandler = (type: string) => {
-    setFilter(type);
-    console.log("onFilterClickHandle", type);
-  };
-
-  const filterAPI = [
-    {
-      key: 1,
-      text: "исполнителю",
-      type: "author",
-      onClick: onFilterClickHandler,
-    },
-    {
-      key: 2,
-      text: "году выпуска",
-      type: "year",
-      onClick: onFilterClickHandler,
-    },
-    { key: 3, text: "жанру", type: "genre", onClick: onFilterClickHandler },
-  ];
+  useEffect(() => {
+    if (isOpenFilter === "genre") {
+      alert(" select genre ");
+      return;
+    }
+    if (isOpenFilter === "author") {
+      alert(" select author ");
+      return;
+    }
+    if (isOpenFilter === "year") {
+      alert(" select year ");
+      return;
+    }
+  }, [isOpenFilter]);
 
   return (
     <div className="centerblock__filter filter">
       <div className="filter__title">Искать по:</div>
-      {filterAPI.map(Button)}
+      <Button
+        title="исполнителю"
+        type="author"
+        isOpen={isOpenFilter === "author"}
+        onClick={() => {
+          setIsOpenFilter("author");
+        }}
+      />
+      <Button
+        title="году выпуска"
+        type="year"
+        isOpen={isOpenFilter === "year"}
+        onClick={() => {
+          setIsOpenFilter("year");
+        }}
+      />
+      <Button
+        title="жанру"
+        type="genre"
+        isOpen={isOpenFilter === "genre"}
+        onClick={() => {
+          setIsOpenFilter("genre");
+        }}
+      />
     </div>
   );
 };
+
 export default Filter;
