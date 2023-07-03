@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Filter.scss";
+import { DropdownFilter } from "./DropDownFilter";
 
 interface ButtonProps {
   title: string;
@@ -7,6 +8,14 @@ interface ButtonProps {
   onClick: any;
   isOpen: boolean;
 }
+
+const filterElements = [
+  "Michael Jackson",
+  "Frank Sinatra",
+  "Calvin Harris",
+  "Zhu",
+  "Arctic Monkeys",
+];
 
 const Button = ({ title, type, onClick }: ButtonProps) => {
   return (
@@ -22,21 +31,47 @@ const Button = ({ title, type, onClick }: ButtonProps) => {
 
 const Filter = () => {
   const [isOpenFilter, setIsOpenFilter] = useState("");
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    if (isOpenFilter === "genre") {
-      alert(" select genre ");
+    const onClick = (e: any) => {
+      if (isOpenFilter !== e.target.dataset.type) {
+        setIsOpenFilter("");
+        console.log("clear");
+        window.removeEventListener("click", onClick);
+      }
+    };
+    console.info("useEffect handler", filter);
+
+    if (isOpenFilter) {
+      window.addEventListener("click", onClick);
+    }
+
+    if (filter && isOpenFilter === "genre") {
+      console.log("", isOpenFilter);
+      setIsOpenFilter("");
       return;
     }
-    if (isOpenFilter === "author") {
-      alert(" select author ");
+    if (filter && isOpenFilter === "author") {
+      console.log("", isOpenFilter);
+      setIsOpenFilter("");
       return;
     }
-    if (isOpenFilter === "year") {
-      alert(" select year ");
+    if (filter && isOpenFilter === "year") {
+      console.log("", isOpenFilter);
+      setIsOpenFilter("");
       return;
     }
-  }, [isOpenFilter]);
+  }, [filter, isOpenFilter]);
+
+  const onSetFilterHandler = (filter: string) => {
+    setFilter(filter);
+    if (filter) {
+      setIsOpenFilter("");
+    }
+
+    //TODO: сделать проброс параметров наверх в массив данных
+  };
 
   return (
     <div className="centerblock__filter filter">
@@ -65,6 +100,13 @@ const Filter = () => {
           setIsOpenFilter("genre");
         }}
       />
+      {isOpenFilter ? (
+        <DropdownFilter
+          type={isOpenFilter}
+          setFilterClick={onSetFilterHandler}
+          filterElements={filterElements}
+        />
+      ) : null}
     </div>
   );
 };
