@@ -1,5 +1,5 @@
-import Icon from "../icons/Icons";
-import Volume from "../volume/Volume";
+import Icon from "../components/common/icons/Icons";
+import Volume from "../components/common/volume/Volume";
 import "./Bar.scss";
 
 export const Bar = () => {

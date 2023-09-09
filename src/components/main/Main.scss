@@ -1,13 +1,12 @@
 .main {
   flex: 1 1 auto;
   display: flex;
-  flex-wrap: wrap;
   justify-content: start;
 
   &__centerblock {
     max-width: 61vw;
     flex-grow: 3;
-    padding: 20px 40px 20px 111px;
+    padding: 20px 40px 80px 111px;
   }
 }
 

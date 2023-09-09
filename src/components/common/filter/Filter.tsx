@@ -2,20 +2,19 @@ import { useState, useEffect } from "react";
 import "./Filter.scss";
 import { DropdownFilter } from "./DropDownFilter";
 
-interface ButtonProps {
-  title: string;
-  type: string;
-  onClick: any;
-  isOpen: boolean;
-}
+import { ButtonProps } from "../../../interfaces";
 
-const filterElements = [
-  "Michael Jackson",
-  "Frank Sinatra",
-  "Calvin Harris",
-  "Zhu",
-  "Arctic Monkeys",
-];
+const filterElements: { [index: string]: any } = {
+  genre: [" Rock", " Pop", " Jazz", "Classic", " Techno"],
+  author: [
+    "Michael Jackson",
+    "Frank Sinatra",
+    "Calvin Harris",
+    "Zhu",
+    "Arctic Monkeys",
+  ],
+  year: ["2010", "2013", "2014", "2015", "1988", "2000"],
+};
 
 const Button = ({ title, type, onClick }: ButtonProps) => {
   return (
@@ -33,35 +32,16 @@ const Filter = () => {
   const [isOpenFilter, setIsOpenFilter] = useState("");
   const [filter, setFilter] = useState("");
 
+  const onClickDocumentClickHandler = (e: any) => {
+    if (e.target.dataset.type) return;
+    setIsOpenFilter("");
+  };
+
   useEffect(() => {
-    const onClick = (e: any) => {
-      if (isOpenFilter !== e.target.dataset.type) {
-        setIsOpenFilter("");
-        console.log("clear");
-        window.removeEventListener("click", onClick);
-      }
+    document.addEventListener("click", onClickDocumentClickHandler);
+    return () => {
+      document.removeEventListener("click", onClickDocumentClickHandler);
     };
-    console.info("useEffect handler", filter);
-
-    if (isOpenFilter) {
-      window.addEventListener("click", onClick);
-    }
-
-    if (filter && isOpenFilter === "genre") {
-      console.log("", isOpenFilter);
-      setIsOpenFilter("");
-      return;
-    }
-    if (filter && isOpenFilter === "author") {
-      console.log("", isOpenFilter);
-      setIsOpenFilter("");
-      return;
-    }
-    if (filter && isOpenFilter === "year") {
-      console.log("", isOpenFilter);
-      setIsOpenFilter("");
-      return;
-    }
   }, [filter, isOpenFilter]);
 
   const onSetFilterHandler = (filter: string) => {
@@ -79,7 +59,6 @@ const Filter = () => {
       <Button
         title="исполнителю"
         type="author"
-        isOpen={isOpenFilter === "author"}
         onClick={() => {
           setIsOpenFilter("author");
         }}
@@ -87,7 +66,6 @@ const Filter = () => {
       <Button
         title="году выпуска"
         type="year"
-        isOpen={isOpenFilter === "year"}
         onClick={() => {
           setIsOpenFilter("year");
         }}
@@ -95,7 +73,6 @@ const Filter = () => {
       <Button
         title="жанру"
         type="genre"
-        isOpen={isOpenFilter === "genre"}
         onClick={() => {
           setIsOpenFilter("genre");
         }}
@@ -104,7 +81,7 @@ const Filter = () => {
         <DropdownFilter
           type={isOpenFilter}
           setFilterClick={onSetFilterHandler}
-          filterElements={filterElements}
+          filterElements={filterElements[isOpenFilter]}
         />
       ) : null}
     </div>

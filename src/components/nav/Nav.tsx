@@ -1,10 +1,7 @@
 import logo from "../../img/logo.png";
+import { BurgerProps } from "../../interfaces";
 import "./Nav.scss";
-import { useState, useEffect } from "react";
-
-interface BurgerProps {
-  onClick: any;
-}
+import { useState } from "react";
 
 const BurgerButton = ({ onClick }: BurgerProps) => {
   return (
@@ -42,8 +39,6 @@ const MenuList = () => {
 
 const Nav = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
-
-  useEffect(() => {}, [isOpenNav]);
 
   return (
     <nav className="main__nav nav">

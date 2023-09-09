@@ -1,33 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../icons/Icons";
+import SleletonList from "./SkeletonList";
 import "./Playlist.scss";
+import { fakeData } from "../../../api/tracks";
+import { IPlaylistItem } from "../../../interfaces";
 
-const fakeData = [
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-  { track: "Guilt", author: "Nero", album: "Welcome Reality", time: "4:44" },
-];
-
-interface IPlaylistItem {
-  track: string;
-  author: string;
-  album: string;
-  time: string;
-}
-
-const PlaylistItem = ({ track, author, album, time }: IPlaylistItem) => {
+const Item = (item: IPlaylistItem) => {
+  console.log(item);
   return (
-    <div className="playlist__item">
+    <div key={item.id} className="playlist__item">
       <div className="playlist__track track">
         <div className="track__title">
           <div className="track__title-image">
@@ -35,24 +16,23 @@ const PlaylistItem = ({ track, author, album, time }: IPlaylistItem) => {
           </div>
           <div className="track__title-text">
             <a className="track__title-link" href="http://">
-              {track} <span className="track__title-span"></span>
+              {item.track} <span className="track__title-span"></span>
             </a>
           </div>
         </div>
         <div className="track__author">
           <a className="track__author-link" href="http://">
-            {author}
+            {item.author}
           </a>
         </div>
         <div className="track__album">
           <a className="track__album-link" href="http://">
-            {album}
+            {item.album}
           </a>
         </div>
         <div className="track__time">
           <Icon name="like" classIcon="track__title-svg" />
-
-          <span className="track__time-text">{time}</span>
+          <span className="track__time-text">{item.time}</span>
         </div>
       </div>
     </div>
@@ -60,6 +40,16 @@ const PlaylistItem = ({ track, author, album, time }: IPlaylistItem) => {
 };
 
 const Playlist = () => {
+  const [tracks, setTracks] = useState([] as Array<IPlaylistItem>);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timing = setTimeout(() => {
+      setTracks(fakeData);
+      setLoading(false);
+    }, 3000);
+    return () => clearInterval(timing);
+  }, []);
   return (
     <React.Fragment>
       <div className="content__title playlist-title">
@@ -71,7 +61,12 @@ const Playlist = () => {
         </div>
       </div>
       <div className="content__playlist playlist">
-        {fakeData.map(PlaylistItem)}
+        {isLoading && <SleletonList />}
+
+        {!isLoading &&
+          tracks.map((item) => {
+            return <Item {...item} />;
+          })}
       </div>
     </React.Fragment>
   );

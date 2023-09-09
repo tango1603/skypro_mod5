@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./DropDownFilter.scss";
-
-interface DropdownFilterProps {
-  type: string;
-  setFilterClick: any;
-  filterElements: Array<string>;
-}
+import { DropdownFilterProps } from "../../../interfaces";
 
 export const DropdownFilter = ({
   type,
